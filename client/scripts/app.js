@@ -42,7 +42,10 @@ app.fetch = function() {
     success: function(data) {
       console.log('chatterbox: Messages received!');
       var rooms = {};
-      //app.messages = data.results;
+      data.results.forEach(function(result){
+        result.roomname = $.trim($('<div/>').text(result.roomname).html());
+      });
+      app.messages = data.results;
       data.results.forEach(function(result) {
         if (result.username && result.text) {
           app.renderMessage(result);
